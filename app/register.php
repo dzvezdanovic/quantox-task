@@ -1,7 +1,50 @@
 <?php
+require "db.php";
+session_start();
 
+function checkIfUserExists($email, $conn) {
+    $sql = "SELECT * FROM user WHERE email = '$email'";
+    $res = $conn->query($sql);
+    return $res->num_rows > 0 ? true : false;
+}
+
+function createUser($email, $name, $password_hash, $conn) {
+    $sql = "INSERT INTO user (name, email, password) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bind_param('sss', $name, $email, $password_hash);
+    $stmt->execute();
+
+    return $stmt->insert_id;
+}
+
+
+if(!empty($_POST['email'])) {
+
+    $email = $_POST["email"];
+    $name = $_POST["name"];
+    $password = $_POST["password"];
+    $repeat_password = $_POST["repeat_password"];
+
+    if($password != $repeat_password) {
+        $_SESSION['pass_error'] = 'Password doesn\'t match';
+    } else {
+        if (!checkIfUserExists($email, $conn)) {
+            $id = createUser($email, $name, password_hash($password, PASSWORD_DEFAULT), $conn);
+            if($id != 0) {
+                $_SESSION['login'] = 'active';
+                $_SESSION['username'] = $name; 
+                echo 'Successful registration';
+                header("Location: search.php");
+            } else {
+                echo 'Unsuccessful registration';
+            }
+        } else {
+            echo 'User exists';
+        }
+    }
+}
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -57,6 +100,9 @@
           />
         </div>
         </div>
+        <?php if(!empty($_SESSION['pass_error'])) { ?>
+        <small><?php echo $_SESSION['pass_error'] ?></small>
+        <?php $_SESSION['pass_error'] = null; } ?>       
          <button type="submit" class="btn btn-primary">
           Register
         </button>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 ?>
 
@@ -18,10 +19,14 @@
 <body>
 <div class="container">
   <h1>Quantox</h1>
+  <?php if(!empty($_SESSION['username'])) { ?>
+  <h2>Welcome <?php echo $_SESSION['username'] ?></h2>
+  <?php } else { ?> 
   <ul>
     <li><a href="app/register.php">Sign Up</a></li>
     <li><a href="app/login.php">Log In</a></li>
   </ul>
+  <?php } ?> 
   <div>
     <div>
       <form action="app/search.php" method="post" id="index-form">

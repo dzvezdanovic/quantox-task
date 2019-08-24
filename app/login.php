@@ -1,4 +1,40 @@
 <?php
+require "db.php";
+session_start();
+
+
+ function getByEmail($email, $conn) {
+    $sql = "SELECT * FROM user WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    if($result->num_rows === 0){
+        return null;
+    } 
+    $row = $result->fetch_assoc();
+    $user = ['id' => $row['id'], 'name' => $row['name'], 'email' => $row['email'], 'password' => $row['password']];
+    return $user;
+}
+
+
+if(!empty($_POST['email'])) {
+    $email = trim($_POST["email"]);
+    $password = $_POST["password"];
+    $user = getByEmail($email, $conn);
+
+    if (password_verify($password, $user['password'])) {
+        $_SESSION['login'] = 'active';
+        $_SESSION['username'] = $user['name'];
+        echo "Successful login";
+        header("Location: ../index.php");
+    } else {
+        echo 'Unsuccessful login';
+        $_SESSION['msg'] = 'User does not exist. Please try again';
+    }
+}
 
 ?>
 
@@ -18,6 +54,9 @@
 <body>
 <main>
   <div class="container">
+  <?php if(!empty($_SESSION['msg'])) { ?>
+  <h1><?php echo $_SESSION['msg'] ?></h1>
+  <?php $_SESSION['msg'] = null; } ?>
   <h1>Login</h1>
     <div id="login">
       <form action="login.php" method="post" id="signup-form">
