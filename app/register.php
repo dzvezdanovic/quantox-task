@@ -33,14 +33,13 @@ if(!empty($_POST['email'])) {
             $id = createUser($email, $name, password_hash($password, PASSWORD_DEFAULT), $conn);
             if($id != 0) {
                 $_SESSION['login'] = 'active';
-                $_SESSION['username'] = $name; 
-                echo 'Successful registration';
+                $_SESSION['username'] = $name;
                 header("Location: search.php");
             } else {
                 echo 'Unsuccessful registration';
             }
         } else {
-            echo 'User exists';
+            $_SESSION['pass_error'] = 'User exists';
         }
     }
 }
@@ -60,55 +59,67 @@ if(!empty($_POST['email'])) {
 </head>
 
 <body>
-<main>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="../index.php">Quantox Task</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="../index.php">Back</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
   <div class="container">
   <h1>Register</h1>
     <div id="register">
       <form action="register.php" method="post" id="signup-form">
         <div class="form-group">
-        <div>
           <div>
-            <label for="name">Name</label>
-            <input type="text" name="name" id="name" class="form-control" required autocomplete="off"/>
-          </div>
+            <div>
+              <label for="name">Name</label>
+              <input type="text" name="name" id="name" class="form-control" required autocomplete="off"/>
+            </div>
 
-          <div>
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" class="form-control" required autocomplete="off"/>
+            <div>
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" class="form-control" required autocomplete="off"/>
+            </div>
           </div>
-        </div>   
-        <div>
-          <label for="password">Password</label>
-          <input
-              type="password"
-              id="password"
-              name="password"
-              class="form-control"
-              required
-              autocomplete="off"
-          />
-        </div>
-        <div>
-          <label for="repeat_password">Repeat Password</label>
-          <input
-              type="password"
-              id="repeat_password"
-              name="repeat_password"
-              class="form-control"
-              required
-              autocomplete="off"
-          />
-        </div>
+          <div>
+            <label for="password">Password</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                required
+                autocomplete="off"
+            />
+          </div>
+          <div>
+            <label for="repeat_password">Repeat Password</label>
+            <input
+                type="password"
+                id="repeat_password"
+                name="repeat_password"
+                class="form-control"
+                required
+                autocomplete="off"
+            />
+          </div>
         </div>
         <?php if(!empty($_SESSION['pass_error'])) { ?>
-        <small><?php echo $_SESSION['pass_error'] ?></small>
-        <?php $_SESSION['pass_error'] = null; } ?>       
+        <span style="color: red; display: block;"><?php echo $_SESSION['pass_error'] ?></span>
+        <?php $_SESSION['pass_error'] = null; } ?>
+
          <button type="submit" class="btn btn-primary">
           Register
         </button>
       </form>
     </div>
-</main>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

@@ -5,51 +5,72 @@ session_start();
 
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8"/>
-  <title>Quantox Task</title>
-  <link
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quantox Task</title>
+    <link
       href="http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600"
       rel="stylesheet"
       type="text/css"
-  />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">  <link rel="stylesheet" href="css/style.css"/>
-</head>
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
 
-<body>
-<div class="container">
-  <h1 id='title'>Quantox</h1>
-  <?php if(!empty($_SESSION['username'])) { ?>
-  <h2>Welcome <?php echo $_SESSION['username'] ?></h2>
-  <?php } else { ?> 
-  <ul id='btns'>
-    <li><a href="app/register.php">Sign Up</a></li>
-    <li><a href="app/login.php">Log In</a></li>
-  </ul>
-  <?php } ?> 
-  <div>
-    <div>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class=" offset-sm-3 col-4">
+          <div id="title">
+            <h1>Quantox</h1>
+            <?php if(!empty($_SESSION['username'])) { ?>
+            <h2>
+              Welcome <?php echo $_SESSION['username'] ?>
+            </h2>
+          </div>
+          <ul>
+            <a href="app/logout.php" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Log out</a>
+          </ul>
+          <?php } else { ?>
+          <ul>
+            <a href="app/register.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Sign Up</a>
+            <a href="app/login.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Log In</a>
+          </ul>
+          <?php } ?>
+        </div>
+      </div>
+    </div>
+    <div class="offset-sm-3 col-7">
       <form action="app/search.php" method="post" id="index-form">
-        <div>
-          <label for="search-param" id='search'>
+        <div class="form-group">
+          <label for="search-param" id="search">
             Search
           </label>
-          <input
-              type="text"
-              id="search-param"
-              name="search-param"
-              required
-              autocomplete="off"
-          />
+          <input class="form-control" type="text" id="search-param" name="search-param" required autocomplete="off" />
         </div>
-        <button class="bttns" type="submit">Search</button>
+        <button class="btn btn-success" type="submit">Search</button>
       </form>
     </div>
-  </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

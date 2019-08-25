@@ -1,37 +1,20 @@
 .table.table-bordered {
-    background-color: #c5c5c5aa;
+  background-color: #c5c5c5aa;
 }
 
-body{
-    background-image: url(../qlogo.png);
-    background-repeat: no-repeat;
+body {
+  background-image: url(../assets/qlogo.png);
+  background-repeat: no-repeat;
+  font-family: 'Times New Roman', Times, serif;
 }
 
-#title{
-    padding-left: 20%;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 6em;
-    padding-top: 2%; 
-    font-style: oblique;
-    
-    
+#title > h1 {
+  font-size: 6em;
+  padding-top: 2%;
+  font-style: oblique;
 }
 
-#btns{
-    padding-left: 20%;
-    list-style-type: none;
-    font-family: 'Times New Roman', Times, serif;
+#title > h2 {
+  padding-top: 2%;
+  font-style: oblique;
 }
-
-#search{
-    padding-left: 20%;
-    font-family: 'Times New Roman', Times, serif;
-    
-}
-
-.bttns{
-    
-    margin-left: 32%;
-    font-family: 'Times New Roman', Times, serif;
-}
-
